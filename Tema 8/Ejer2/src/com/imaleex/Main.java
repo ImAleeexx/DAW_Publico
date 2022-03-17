@@ -4,6 +4,7 @@ import com.imaleex.Exceptions.DbException;
 import com.imaleex.Models.DbModel.EventoDAO;
 import com.imaleex.Models.Evento;
 import com.imaleex.Utils.Db;
+import com.imaleex.Views.MainWindow;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -14,7 +15,9 @@ import java.time.ZoneId;
 public class Main {
     public static void main(String[] args) {
         setupDb();
+        new MainWindow();
 
+/*
         Evento e = new Evento(
                 "Prueba",
                 "Aula 33",
@@ -34,7 +37,7 @@ public class Main {
             System.out.println(EventoDAO.buscarEvento(e.getName()).getLocation());
         } catch (DbException ex) {
             ex.printStackTrace();
-        }
+        }*/
     }
 
 

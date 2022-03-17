@@ -5,7 +5,7 @@ import javax.swing.*;
 /**
  * @author Alex Cortes
  */
-public class MainWindow {
+public class CreateWindow {
     private JPanel barPanel;
     private JMenu gestionarEventosMenu;
     private JMenuItem crearEventoMenuItem;
@@ -15,7 +15,7 @@ public class MainWindow {
     JFrame frame = new JFrame("Gestion Eventos");
 
 
-    public MainWindow() {
+    public CreateWindow() {
         this.frame.setContentPane(this.PanelPrincipal);
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.frame.pack();

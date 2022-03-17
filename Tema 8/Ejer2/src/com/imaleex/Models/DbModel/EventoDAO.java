@@ -5,6 +5,7 @@ import com.imaleex.Models.Evento;
 import com.imaleex.Utils.Db;
 
 import java.sql.*;
+
 /**
  * @author Alex Cortes
  */
@@ -21,7 +22,7 @@ public class EventoDAO {
             ps.setString(2, e.getLocation());
             ps.setInt(3, e.getMaxAssistants());
             ps.setTimestamp(4, Timestamp.valueOf(e.getStartTime()));
-            ps.setTimestamp(5,  Timestamp.valueOf(e.getEndTime()));
+            ps.setTimestamp(5, Timestamp.valueOf(e.getEndTime()));
             int n = ps.executeUpdate();
             if (n != 1)
                 throw new DbException("El número de filas actualizadas no es uno");
@@ -29,8 +30,7 @@ public class EventoDAO {
             try (ResultSet generatedKeys = ps.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
                     e.setId(generatedKeys.getInt(1));
-                }
-                else {
+                } else {
                     throw new DbException("El ID del evento no es valido");
                 }
             }
@@ -68,7 +68,7 @@ public class EventoDAO {
             ps.setString(2, e.getLocation());
             ps.setInt(3, e.getMaxAssistants());
             ps.setTimestamp(4, Timestamp.valueOf(e.getStartTime()));
-            ps.setTimestamp(5,  Timestamp.valueOf(e.getEndTime()));
+            ps.setTimestamp(5, Timestamp.valueOf(e.getEndTime()));
             ps.setInt(6, e.getId());
             int n = ps.executeUpdate();
             if (n != 1)
@@ -85,7 +85,7 @@ public class EventoDAO {
         Connection con = db.getConnection();
         String plantilla = "SELECT * FROM eventos where name = ? ";
         try {
-            PreparedStatement ps = con.prepareStatement(plantilla);
+            PreparedStatement ps = con.prepareStatement(plantilla, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             ps.setString(1, name);
             return loadEvento(ps);
 
@@ -100,7 +100,7 @@ public class EventoDAO {
         Connection con = db.getConnection();
         String plantilla = "SELECT * FROM eventos where id = ? ";
         try {
-            PreparedStatement ps = con.prepareStatement(plantilla);
+            PreparedStatement ps = con.prepareStatement(plantilla, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             ps.setInt(1, id);
             return loadEvento(ps);
         } catch (SQLException sqlException) {
@@ -112,6 +112,9 @@ public class EventoDAO {
 
     private static Evento loadEvento(PreparedStatement ps) throws SQLException, DbException {
         ResultSet res = ps.executeQuery();
+        if (getRowCount(res) > 1) {
+            throw new DbException("Ya existe un evento con ese nombre");
+        }
         if (res.next()) {
             return new Evento(
                     res.getInt("id"),
@@ -124,5 +127,26 @@ public class EventoDAO {
             );
         } else
             throw new DbException("Evento no encontrado");
+    }
+
+    private static int getRowCount(ResultSet resultSet) {
+        if (resultSet == null) {
+            return 0;
+        }
+
+        try {
+            resultSet.last();
+            return resultSet.getRow();
+        } catch (SQLException exp) {
+            exp.printStackTrace();
+        } finally {
+            try {
+                resultSet.beforeFirst();
+            } catch (SQLException exp) {
+                exp.printStackTrace();
+            }
+        }
+
+        return 0;
     }
 }
