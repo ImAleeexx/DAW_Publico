@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="com.imaleex.Views.MainWindow">
+  <grid id="27dc6" binding="MainPanel" layout-manager="GridLayoutManager" row-count="4" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+    <margin top="0" left="0" bottom="0" right="0"/>
+    <constraints>
+      <xy x="20" y="20" width="611" height="400"/>
+    </constraints>
+    <properties/>
+    <border type="none"/>
+    <children>
+      <grid id="cebb2" binding="barPanel" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <grid id="b47dd" class="javax.swing.JMenuBar" binding="menuBar1" default-binding="true" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+            <constraints/>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <component id="87219" class="javax.swing.JMenu" binding="resumenMenu" default-binding="true">
+                <constraints/>
+                <properties>
+                  <selected value="false"/>
+                  <text value="Resumen"/>
+                </properties>
+              </component>
+              <component id="c4f8f" class="javax.swing.JMenu" binding="tarjetasMenu" default-binding="true">
+                <constraints/>
+                <properties>
+                  <text value="Tarjetas"/>
+                </properties>
+              </component>
+              <component id="52d70" class="javax.swing.JMenu" binding="inversionesMenu" default-binding="true">
+                <constraints/>
+                <properties>
+                  <text value="Inversiones"/>
+                </properties>
+              </component>
+              <component id="594c6" class="javax.swing.JMenu" binding="mercadosMenu" default-binding="true">
+                <constraints/>
+                <properties>
+                  <text value="Mercados"/>
+                </properties>
+              </component>
+              <component id="8cddb" class="javax.swing.JMenu" binding="prestamosMenu" default-binding="true">
+                <constraints/>
+                <properties>
+                  <text value="Prestamos"/>
+                </properties>
+              </component>
+              <component id="97335" class="javax.swing.JMenu" binding="segurosMenu" default-binding="true">
+                <constraints/>
+                <properties>
+                  <text value="Seguros"/>
+                </properties>
+              </component>
+              <component id="e9644" class="javax.swing.JMenu" binding="serviciosMenu" default-binding="true">
+                <constraints/>
+                <properties>
+                  <text value="Servicios"/>
+                </properties>
+              </component>
+              <grid id="2d2a0" class="javax.swing.JMenu" binding="cuentasMenu" default-binding="true" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+                <constraints/>
+                <properties>
+                  <text value="Cuentas"/>
+                </properties>
+                <border type="none"/>
+                <children>
+                  <component id="39ab1" class="javax.swing.JMenuItem" binding="consultaMenuItem" default-binding="true">
+                    <constraints/>
+                    <properties>
+                      <text value="Consulta"/>
+                    </properties>
+                  </component>
+                  <component id="513b8" class="javax.swing.JMenuItem" binding="movimientosMenuItem" default-binding="true">
+                    <constraints/>
+                    <properties>
+                      <text value="Movimientos"/>
+                    </properties>
+                  </component>
+                </children>
+              </grid>
+            </children>
+          </grid>
+        </children>
+      </grid>
+      <vspacer id="2a870">
+        <constraints>
+          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+        </constraints>
+      </vspacer>
+      <grid id="309c5" binding="buttonPanel" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="2">
+        <constraints>
+          <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="40ddf" class="javax.swing.JButton" binding="CANCELARButton" default-binding="true">
+            <constraints/>
+            <properties>
+              <text value="Cerrar sesión"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+      <grid id="9008a" binding="cuentasPanel" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="0">
+        <constraints>
+          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="1" use-parent-layout="false"/>
+        </constraints>
+        <properties/>
+        <border type="none" title="Cuentas"/>
+        <children/>
+      </grid>
+    </children>
+  </grid>
+</form>
