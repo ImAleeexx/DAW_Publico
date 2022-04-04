@@ -12,6 +12,10 @@ public class MainWindow {
     private JMenuItem cancelarEventoMenuItem;
     private JMenu consultarEventosMenu;
     private JPanel PanelPrincipal;
+    private JTextField textField1;
+    private JTextField textField2;
+    private JTextField textField3;
+    private JTextField textField4;
     JFrame frame = new JFrame("Gestion Eventos");
 
 

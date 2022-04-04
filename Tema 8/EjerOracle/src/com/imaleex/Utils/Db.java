@@ -3,7 +3,6 @@ package com.imaleex.Utils;
 import com.imaleex.Exceptions.DbException;
 
 import java.sql.*;
-import java.util.ArrayList;
 
 /**
  * @author Alex Cortes
@@ -20,14 +19,30 @@ public class Db {
     //Instance vars
     private Connection connection = null;
 
-    // Private constructor to prevent instances
-    private Db(String dbUser, String dbPassword, String dbName, String dbHost) throws SQLException, ClassNotFoundException {
-        this.connection = startConnection(dbUser,dbPassword,dbName,dbHost);
+    // Private constructor to prevent instances (singleton)
+    private Db(String dbUser, String dbPassword, String dbName, String dbHost, int dbType) throws SQLException, ClassNotFoundException, DbException {
+        switch (dbType){
+            case 1:
+                this.connection = startMysqlConnection(dbUser, dbPassword, dbName, dbHost);
+                break;
+            case 2:
+                this.connection = startOracleConnection(dbUser, dbPassword, dbName, dbHost);
+                break;
+            default:
+                throw new DbException("The db type is not supported");
+
+        }
     }
 
-    private Connection startConnection(String dbUser, String dbPassword, String dbName, String dbHost) throws ClassNotFoundException, SQLException {
+    private Connection startMysqlConnection(String dbUser, String dbPassword, String dbName, String dbHost) throws ClassNotFoundException, SQLException {
         Class.forName("com.mysql.cj.jdbc.Driver");
         String url = "jdbc:mysql://"+dbHost +":3306/"+dbName;
+        return DriverManager.getConnection (url , dbUser, dbPassword);
+    }
+
+    private Connection startOracleConnection(String dbUser, String dbPassword, String dbName, String dbHost) throws ClassNotFoundException, SQLException {
+        Class.forName("oracle.jdbc.OracleDriver");
+        String url = "jdbc:oracle:thin:@"+dbHost +":1521:"+dbName;
         return DriverManager.getConnection (url , dbUser, dbPassword);
     }
 
@@ -56,16 +71,17 @@ public class Db {
     }
 
     // Static method that returns real unique instance of db class
-    public static Db getInstance() throws DbException {
+    public static Db getInstance(int dbType) throws DbException {
         try{
             if (instance == null )
                 if ((dbUser != null ||  dbName != null || dbHost != null))
-                    instance = new Db(dbUser, dbPassword, dbName, dbHost);
+                    instance = new Db(dbUser, dbPassword, dbName, dbHost, dbType);
                 else
                     throw new DbException("The db parameters are not correctly setted");
 
             return instance;
         } catch (SQLException sqlException){
+            sqlException.printStackTrace();
             throw new DbException("The db connector could not connect with the database, the Db object has not been created");
         } catch (ClassNotFoundException classNotFoundException){
             throw new DbException("The db connector class could not be loaded, check the project modules and jre folder");

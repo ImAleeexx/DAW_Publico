@@ -6,6 +6,8 @@ import com.imaleex.Utils.Db;
 
 import java.sql.*;
 
+import static com.imaleex.Utils.Db.getRowCount;
+
 /**
  * @author Alex Cortes
  */
@@ -57,6 +59,8 @@ public class EventoDAO {
         }
     }
 
+    public static Evento  queryEvento
+
 
     public static void editEvento(Evento e) throws DbException {
         Db db = Db.getInstance();
@@ -83,7 +87,7 @@ public class EventoDAO {
     public static Evento buscarEvento(String name) throws DbException {
         Db db = Db.getInstance();
         Connection con = db.getConnection();
-        String plantilla = "SELECT * FROM eventos where name = ? ";
+        String plantilla = "SELECT * FROM eventos where name = ?";
         try {
             PreparedStatement ps = con.prepareStatement(plantilla, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             ps.setString(1, name);
@@ -129,24 +133,5 @@ public class EventoDAO {
             throw new DbException("Evento no encontrado");
     }
 
-    private static int getRowCount(ResultSet resultSet) {
-        if (resultSet == null) {
-            return 0;
-        }
 
-        try {
-            resultSet.last();
-            return resultSet.getRow();
-        } catch (SQLException exp) {
-            exp.printStackTrace();
-        } finally {
-            try {
-                resultSet.beforeFirst();
-            } catch (SQLException exp) {
-                exp.printStackTrace();
-            }
-        }
-
-        return 0;
-    }
 }
